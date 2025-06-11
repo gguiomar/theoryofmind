@@ -113,11 +113,11 @@ class TOMAnalysis:
             else:
                 self.df[perf_col] = 0
     
-    def circular_ability_performance(self, figsize=(20, 10), save_path=None):
-        """Create polar bar chart for ability group performance."""
+    def circular_ability_performance(self, figsize=(12, 12), save_path=None):
+        """Create circular radar chart with all models overlayed for ability group performance."""
         # Calculate performance for each model in each ability group
         ability_names = list(self.ability_groups.keys())
-        model_performances = {}
+        ability_performance = {}
         
         for model_name in self.model_names:
             perf_col = f'{model_name}_Performance'
@@ -127,67 +127,66 @@ class TOMAnalysis:
                 group_data = self.df[self.df[self.ability_column].isin(abilities)]
                 if len(group_data) > 0 and perf_col in group_data.columns:
                     accuracy = group_data[perf_col].mean()
-                    performances.append(accuracy * 100)  # Convert to percentage
+                    performances.append(accuracy)
                 else:
                     performances.append(0)
             
-            model_performances[model_name] = performances
+            ability_performance[model_name] = performances
         
-        # Create polar bar chart
-        plt.figure(figsize=figsize)
-        ax = plt.subplot(111, polar=True)
-        plt.axis('off')
+        # Create circular plot
+        fig, ax = plt.subplots(figsize=figsize, subplot_kw=dict(projection='polar'))
         
-        # Set limits
-        upperLimit = 100
-        lowerLimit = 30
+        # Set up angles for each ability group
+        angles = np.linspace(0, 2 * np.pi, len(ability_names), endpoint=False)
         
-        # Calculate positions
-        n_groups = len(ability_names)
-        n_models = len(self.model_names)
-        width = 2 * np.pi / (n_groups * n_models)
+        # Colors for different models using crest palette
+        colors = sns.color_palette("crest", len(self.model_names))
         
-        colors = sns.color_palette("crest", n_models)
+        # Plot each model
+        for idx, (model_name, performances) in enumerate(ability_performance.items()):
+            if len(performances) == len(ability_names):
+                # Close the circle
+                performances_closed = performances + [performances[0]]
+                angles_closed = np.concatenate([angles, [angles[0]]])
+                
+                # Plot line and fill
+                ax.plot(angles_closed, performances_closed, 'o-', 
+                       linewidth=3, markersize=8, label=model_name, 
+                       color=colors[idx], alpha=0.8)
+                ax.fill(angles_closed, performances_closed, 
+                       color=colors[idx], alpha=0.1)
         
-        for model_idx, (model_name, performances) in enumerate(model_performances.items()):
-            # Compute heights
-            max_perf = max(max(model_performances.values(), key=max))
-            slope = (upperLimit - lowerLimit) / max_perf
-            heights = [slope * perf + lowerLimit for perf in performances]
-            
-            # Compute angles for this model
-            base_angles = [i * (2 * np.pi / n_groups) for i in range(n_groups)]
-            angles = [angle + model_idx * width for angle in base_angles]
-            
-            # Draw bars
-            bars = ax.bar(
-                x=angles,
-                height=heights,
-                width=width * 0.8,
-                bottom=lowerLimit,
-                linewidth=2,
-                edgecolor="white",
-                color=colors[model_idx],
-                alpha=0.8,
-                label=model_name
-            )
-        
-        # Add labels
-        label_angles = [i * (2 * np.pi / n_groups) for i in range(n_groups)]
-        ax.set_xticks(label_angles)
+        # Customize the plot
+        ax.set_xticks(angles)
         ax.set_xticklabels(ability_names, fontsize=14, fontweight='bold')
+        ax.set_ylim(0, 1)
+        ax.set_ylabel('Accuracy', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3)
         
-        plt.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=12)
-        plt.title('Model Performance Across ToM Ability Groups', 
-                 fontsize=18, fontweight='bold', pad=30)
+        # Add radial labels
+        ax.set_rticks([0.2, 0.4, 0.6, 0.8, 1.0])
+        ax.set_rlabel_position(0)
+        ax.tick_params(labelsize=12)
+        
+        # Add legend
+        ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=12)
+        
+        # Add title
+        plt.title('Model Performance Across Theory of Mind Ability Groups', 
+                 fontsize=16, fontweight='bold', pad=30)
+        
+        plt.tight_layout()
         
         if save_path:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        
         plt.show()
+        
+        return ability_performance
     
     def comprehensive_correlation_matrix(self, figsize=(16, 12), save_path=None):
-        """Correlation matrix with significance shading and model ranking."""
-        # Calculate correlations
+        """Correlation matrix with significance highlighting and model ranking."""
+        # Calculate correlations between model performance and analysis metrics
         correlation_data = []
         
         for model_name in self.model_names:
@@ -197,6 +196,7 @@ class TOMAnalysis:
             
             for metric_name, metric_col in self.all_metrics.items():
                 if metric_col in self.df.columns:
+                    # Calculate Pearson correlation between model performance and metric values
                     corr, p_value = pearsonr(self.df[perf_col], self.df[metric_col])
                     correlation_data.append({
                         'Model': model_name,
@@ -215,36 +215,41 @@ class TOMAnalysis:
             if perf_col in self.df.columns:
                 model_overall_perf[model_name] = self.df[perf_col].mean()
         
-        # Sort models by performance
+        # Sort models by performance (best to worst)
         sorted_models = sorted(model_overall_perf.keys(), 
                              key=lambda x: model_overall_perf[x], reverse=True)
         
         # Create pivot tables
         pivot_corr = corr_df.pivot(index='Model', columns='Metric', values='Correlation')
         pivot_pval = corr_df.pivot(index='Model', columns='Metric', values='P_Value')
+        pivot_sig = corr_df.pivot(index='Model', columns='Metric', values='Significant')
         
         # Reorder by performance
         pivot_corr = pivot_corr.reindex(sorted_models)
         pivot_pval = pivot_pval.reindex(sorted_models)
+        pivot_sig = pivot_sig.reindex(sorted_models)
         
         # Create heatmap
         fig, ax = plt.subplots(figsize=figsize)
         
-        # Create significance mask (non-significant correlations will be lighter)
-        significance_mask = pivot_pval > 0.05
-        
-        # Plot heatmap
+        # Plot base heatmap
         sns.heatmap(pivot_corr, annot=True, cmap='crest', center=0,
                    square=True, cbar_kws={'shrink': 0.8}, fmt='.3f',
                    linewidths=0.5, ax=ax, annot_kws={'size': 10})
         
-        # Add significance overlay
+        # Add significance highlighting
         for i in range(len(pivot_corr.index)):
             for j in range(len(pivot_corr.columns)):
-                if significance_mask.iloc[i, j]:
-                    # Add white overlay for non-significant correlations
-                    ax.add_patch(plt.Rectangle((j, i), 1, 1, 
-                                             fill=True, color='white', alpha=0.5))
+                if pivot_sig.iloc[i, j]:  # If significant
+                    # Add red border for significant correlations
+                    rect = plt.Rectangle((j, i), 1, 1, fill=False, 
+                                       edgecolor='red', linewidth=3, alpha=0.8)
+                    ax.add_patch(rect)
+                else:
+                    # Add gray overlay for non-significant correlations
+                    rect = plt.Rectangle((j, i), 1, 1, fill=True, 
+                                       facecolor='gray', alpha=0.3)
+                    ax.add_patch(rect)
         
         # Clean styling
         ax.spines['top'].set_visible(False)
@@ -252,13 +257,20 @@ class TOMAnalysis:
         ax.spines['left'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
         
-        ax.set_title('Model Performance Correlations (Ranked by Overall Performance)\nShaded areas indicate non-significant correlations (p>0.05)', 
+        # Add performance scores to y-axis labels
+        y_labels = []
+        for model in sorted_models:
+            perf_score = model_overall_perf[model]
+            y_labels.append(f'{model} ({perf_score:.3f})')
+        
+        ax.set_yticklabels(y_labels, rotation=0, fontsize=12)
+        
+        ax.set_title('Model Performance Correlations with Analysis Metrics\n(Red borders: significant p<0.05, Gray overlay: non-significant)', 
                     fontweight='bold', fontsize=16, pad=20)
         ax.set_xlabel('Analysis Metrics', fontweight='bold', fontsize=14)
         ax.set_ylabel('Models (Ranked by Performance)', fontweight='bold', fontsize=14)
         
         plt.xticks(rotation=45, ha='right', fontsize=12)
-        plt.yticks(rotation=0, fontsize=12)
         plt.tight_layout()
         
         if save_path:

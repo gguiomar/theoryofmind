@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Methods: Multi-Dimensional Analysis of Theory of Mind in Large Language Models}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Methods}
+
+\subsection{Dataset and Language Models}
+
+We evaluated six state-of-the-art large language models on a comprehensive Theory of Mind (ToM) dataset containing 2,860 samples across six ability categories: Emotion, Belief, Desire, Intention, Knowledge, and Non-Literal Communication. The evaluated models included:
+
+\begin{itemize}
+    \item Meta Llama 3.1 70B Instruct
+    \item Qwen 2.5 32B Instruct  
+    \item Allen Institute OLMo 2.0 13B Instruct
+    \item Mistral 7B Instruct v0.3
+    \item Microsoft Phi-3 Mini 4K Instruct
+    \item InternLM 2.5 1.8B Chat
+\end{itemize}
+
+Model performance was evaluated using binary accuracy (correct/incorrect) on multiple-choice Theory of Mind questions spanning diverse cognitive abilities and complexity levels.
+
+\subsection{Multi-Dimensional Question Analysis}
+
+To understand the relationship between question characteristics and model performance, we conducted three complementary analyses that capture different aspects of linguistic and cognitive complexity.
+
+\subsubsection{Idea Density Analysis}
+
+Idea density measures the propositional content per unit of text, providing insight into the informational complexity of ToM questions. We employed the DEPID (Density Estimation of Propositional IDeas) algorithm, which:
+
+\begin{enumerate}
+    \item Performs part-of-speech tagging and syntactic parsing
+    \item Identifies propositional ideas based on predicate-argument structures
+    \item Calculates density as the ratio of propositions to total words
+    \item Normalizes scores to account for text length variations
+\end{enumerate}
+
+The idea density metric captures how much semantic information is packed into each question, with higher values indicating more cognitively demanding content that requires processing multiple interconnected concepts simultaneously.
+
+\subsubsection{Question Complexity Analysis}
+
+We developed a comprehensive question complexity framework that decomposes cognitive demands into four distinct dimensions:
+
+\paragraph{Syntactic Complexity ($C_{syn}$):} Measures structural linguistic complexity through:
+\begin{itemize}
+    \item Parse tree depth and branching factor
+    \item Clause embedding levels
+    \item Syntactic dependency distances
+    \item Presence of complex grammatical constructions
+\end{itemize}
+
+\paragraph{Semantic Complexity ($C_{sem}$):} Quantifies meaning-level complexity via:
+\begin{itemize}
+    \item Lexical diversity and semantic field breadth
+    \item Abstract concept density
+    \item Polysemy and ambiguity measures
+    \item Conceptual relationship complexity
+\end{itemize}
+
+\paragraph{Theory of Mind Complexity ($C_{ToM}$):} Assesses ToM-specific cognitive demands:
+\begin{itemize}
+    \item Mental state attribution depth (first-order, second-order, etc.)
+    \item Number of agents and their mental states
+    \item Temporal reasoning about belief changes
+    \item False belief and perspective-taking requirements
+\end{itemize}
+
+\paragraph{Reasoning Complexity ($C_{reas}$):} Evaluates logical and inferential demands:
+\begin{itemize}
+    \item Inference chain length and complexity
+    \item Causal reasoning requirements
+    \item Counterfactual thinking demands
+    \item Integration of multiple information sources
+\end{itemize}
+
+The overall Question Complexity Score is computed as:
+\begin{equation}
+C_{total} = \alpha C_{syn} + \beta C_{sem} + \gamma C_{ToM} + \delta C_{reas}
+\end{equation}
+where $\alpha$, $\beta$, $\gamma$, and $\delta$ are empirically determined weights reflecting the relative contribution of each dimension.
+
+\subsubsection{Rhetorical Structure Theory (RST) Analysis}
+
+RST analysis captures the discourse-level organization of ToM questions by analyzing how textual segments relate to form coherent narratives. Our RST implementation identifies:
+
+\paragraph{Elementary Discourse Units (EDUs):} The minimal building blocks of discourse, typically clauses or clause-like segments that express single propositions or events.
+
+\paragraph{Tree Depth:} The hierarchical depth of the RST parse tree, indicating the complexity of discourse organization and the number of embedded rhetorical relations.
+
+\paragraph{Rhetorical Relations:} We focus on three key relation types particularly relevant to ToM reasoning:
+
+\begin{itemize}
+    \item \textbf{Attribution Relations:} Capture instances where mental states, beliefs, or speech acts are attributed to agents (e.g., "John thinks that...", "Mary said that...")
+    \item \textbf{Causal Relations:} Identify cause-effect relationships that are crucial for understanding motivations and consequences in ToM scenarios
+    \item \textbf{Explanation Relations:} Mark segments that provide explanatory information about agents' mental states or behaviors
+\end{itemize}
+
+The RST analysis provides insight into how discourse structure affects the cognitive load of processing ToM questions, with more complex rhetorical structures potentially requiring greater working memory and integration capabilities.
+
+\subsection{Statistical Analysis}
+
+\subsubsection{Correlation Analysis}
+
+We computed Pearson correlation coefficients between model performance and each analysis metric to identify significant relationships between question characteristics and model accuracy. Statistical significance was assessed using $p < 0.05$ with appropriate corrections for multiple comparisons.
+
+\subsubsection{Performance Ranking}
+
+Models were ranked by overall accuracy across all ToM questions, allowing us to examine whether the relationship between question characteristics and performance varies systematically with model capability.
+
+\subsubsection{Ability Group Analysis}
+
+We analyzed model performance separately for each of the six ToM ability categories to identify domain-specific patterns and determine whether certain types of mental state reasoning are more challenging than others.
+
+\subsection{Visualization and Interpretation}
+
+Our analysis employed several visualization techniques to reveal patterns in the high-dimensional relationship between question characteristics and model performance:
+
+\begin{itemize}
+    \item \textbf{Circular Radar Charts:} Display model performance across ToM ability groups, allowing direct comparison of strengths and weaknesses
+    \item \textbf{Correlation Matrices:} Show the relationship between model performance and analysis metrics, with significance highlighting
+    \item \textbf{Scatter Plots:} Reveal how performance varies across different levels of question complexity
+    \item \textbf{Submeasure Correlation Analysis:} Examine relationships between different analysis dimensions
+\end{itemize}
+
+This multi-dimensional approach provides a comprehensive characterization of the factors that influence Theory of Mind performance in large language models, enabling both theoretical insights into the nature of machine ToM reasoning and practical guidance for model development and evaluation.
+
+\end{document}
