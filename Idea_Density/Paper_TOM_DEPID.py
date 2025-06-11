@@ -4,7 +4,7 @@ from ideadensity import depid
 
 # Load your dataset
 df = pd.read_csv('../dataset.csv')
-
+#%%
 # Function to calculate idea density and word count
 def calculate_idea_metrics(text):
         if pd.isna(text) or text.strip() == '':
