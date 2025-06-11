@@ -215,7 +215,7 @@ def process_stories_from_csv(csv_path, output_path, model_version='gumrrg', cuda
 # Example usage
 if __name__ == "__main__":
     # Process your CSV with different model versions if needed
-    input_csv = "./dataset.csv"
+    input_csv = "../dataset.csv"
     output_csv = "dataset_RST.csv"
     
     # Try with 'gumrrg' model (best for diverse text types including stories)

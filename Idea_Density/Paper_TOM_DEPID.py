@@ -1,8 +1,9 @@
+#%%
 import pandas as pd
 from ideadensity import depid
 
 # Load your dataset
-df = pd.read_csv('./dataset.csv')
+df = pd.read_csv('../dataset.csv')
 
 # Function to calculate idea density and word count
 def calculate_idea_metrics(text):
@@ -31,3 +32,5 @@ df = df[cols]
 
 # Save the updated dataset
 df.to_csv('dataset_with_idea_density.csv', index=False)
+
+# %%
