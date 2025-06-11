@@ -1,0 +1,73 @@
+Model,Complexity_Type,Complexity_Level,Accuracy,Sample_Count
+Meta Llama 3.1 70B,Question Complexity,Low,0.7703412073490814,762
+Qwen 2.5 32B,Question Complexity,Low,0.6706036745406824,762
+OLMo 13B,Question Complexity,Low,0.6876640419947506,762
+Mistral 7B,Question Complexity,Low,0.6601049868766404,762
+Phi 3 Mini,Question Complexity,Low,0.6338582677165354,762
+InternLM 1.8B,Question Complexity,Low,0.6548556430446194,762
+Meta Llama 3.1 70B,Question Complexity,Medium-Low,0.7570789865871833,671
+Qwen 2.5 32B,Question Complexity,Medium-Low,0.6706408345752608,671
+OLMo 13B,Question Complexity,Medium-Low,0.6423248882265276,671
+Mistral 7B,Question Complexity,Medium-Low,0.5380029806259314,671
+Phi 3 Mini,Question Complexity,Medium-Low,0.5856929955290611,671
+InternLM 1.8B,Question Complexity,Medium-Low,0.5275707898658718,671
+Meta Llama 3.1 70B,Question Complexity,Medium-High,0.7138849929873773,713
+Qwen 2.5 32B,Question Complexity,Medium-High,0.6760168302945302,713
+OLMo 13B,Question Complexity,Medium-High,0.6311360448807855,713
+Mistral 7B,Question Complexity,Medium-High,0.5091164095371669,713
+Phi 3 Mini,Question Complexity,Medium-High,0.5539971949509116,713
+InternLM 1.8B,Question Complexity,Medium-High,0.4628330995792426,713
+Meta Llama 3.1 70B,Question Complexity,High,0.8123249299719888,714
+Qwen 2.5 32B,Question Complexity,High,0.7394957983193278,714
+OLMo 13B,Question Complexity,High,0.5070028011204482,714
+Mistral 7B,Question Complexity,High,0.42997198879551823,714
+Phi 3 Mini,Question Complexity,High,0.5434173669467787,714
+InternLM 1.8B,Question Complexity,High,0.40336134453781514,714
+Meta Llama 3.1 70B,Idea Density,Low,0.8603351955307262,716
+Qwen 2.5 32B,Idea Density,Low,0.7863128491620112,716
+OLMo 13B,Idea Density,Low,0.6187150837988827,716
+Mistral 7B,Idea Density,Low,0.5181564245810056,716
+Phi 3 Mini,Idea Density,Low,0.5977653631284916,716
+InternLM 1.8B,Idea Density,Low,0.48743016759776536,716
+Meta Llama 3.1 70B,Idea Density,Medium-Low,0.6842837273991655,719
+Qwen 2.5 32B,Idea Density,Medium-Low,0.6216968011126565,719
+OLMo 13B,Idea Density,Medium-Low,0.6008344923504868,719
+Mistral 7B,Idea Density,Medium-Low,0.5104311543810849,719
+Phi 3 Mini,Idea Density,Medium-Low,0.5396383866481224,719
+InternLM 1.8B,Idea Density,Medium-Low,0.48817802503477054,719
+Meta Llama 3.1 70B,Idea Density,Medium-High,0.7429340511440108,743
+Qwen 2.5 32B,Idea Density,Medium-High,0.6716016150740243,743
+OLMo 13B,Idea Density,Medium-High,0.6137281292059219,743
+Mistral 7B,Idea Density,Medium-High,0.5558546433378196,743
+Phi 3 Mini,Idea Density,Medium-High,0.576043068640646,743
+InternLM 1.8B,Idea Density,Medium-High,0.5450874831763123,743
+Meta Llama 3.1 70B,Idea Density,High,0.7683284457478006,682
+Qwen 2.5 32B,Idea Density,High,0.6774193548387096,682
+OLMo 13B,Idea Density,High,0.6392961876832844,682
+Mistral 7B,Idea Density,High,0.5615835777126099,682
+Phi 3 Mini,Idea Density,High,0.6085043988269795,682
+InternLM 1.8B,Idea Density,High,0.5366568914956011,682
+Meta Llama 3.1 70B,RST Complexity,Low,0.8362282878411911,806
+Qwen 2.5 32B,RST Complexity,Low,0.750620347394541,806
+OLMo 13B,RST Complexity,Low,0.5843672456575683,806
+Mistral 7B,RST Complexity,Low,0.5558312655086849,806
+Phi 3 Mini,RST Complexity,Low,0.6439205955334988,806
+InternLM 1.8B,RST Complexity,Low,0.5136476426799007,806
+Meta Llama 3.1 70B,RST Complexity,Medium-Low,0.6907216494845361,679
+Qwen 2.5 32B,RST Complexity,Medium-Low,0.6303387334315169,679
+OLMo 13B,RST Complexity,Medium-Low,0.605301914580265,679
+Mistral 7B,RST Complexity,Medium-Low,0.4683357879234168,679
+Phi 3 Mini,RST Complexity,Medium-Low,0.49042709867452133,679
+InternLM 1.8B,RST Complexity,Medium-Low,0.4536082474226804,679
+Meta Llama 3.1 70B,RST Complexity,Medium-High,0.7385892116182573,723
+Qwen 2.5 32B,RST Complexity,Medium-High,0.677731673582296,723
+OLMo 13B,RST Complexity,Medium-High,0.6224066390041494,723
+Mistral 7B,RST Complexity,Medium-High,0.5283540802213001,723
+Phi 3 Mini,RST Complexity,Medium-High,0.5684647302904564,723
+InternLM 1.8B,RST Complexity,Medium-High,0.5311203319502075,723
+Meta Llama 3.1 70B,RST Complexity,High,0.7776073619631901,652
+Qwen 2.5 32B,RST Complexity,High,0.6871165644171779,652
+OLMo 13B,RST Complexity,High,0.6671779141104295,652
+Mistral 7B,RST Complexity,High,0.5920245398773006,652
+Phi 3 Mini,RST Complexity,High,0.6073619631901841,652
+InternLM 1.8B,RST Complexity,High,0.5598159509202454,652
