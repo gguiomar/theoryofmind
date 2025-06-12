@@ -184,6 +184,97 @@ class TOMAnalysis:
         
         return ability_performance
     
+    def circular_ability_metrics(self, figsize=(12, 12), save_path=None):
+        """Create circular radar chart showing normalized metric scores for each ability group."""
+        # Calculate metric scores for each ability group
+        ability_names = list(self.ability_groups.keys())
+        metric_scores = {}
+        
+        # First, collect all metric values for normalization
+        all_metric_values = {}
+        for metric_name, metric_col in self.all_metrics.items():
+            if metric_col in self.df.columns:
+                all_metric_values[metric_name] = self.df[metric_col].dropna()
+        
+        # Calculate scores for each metric in each ability group
+        for metric_name, metric_col in self.all_metrics.items():
+            if metric_col not in self.df.columns:
+                continue
+                
+            scores = []
+            for group_name, abilities in self.ability_groups.items():
+                group_data = self.df[self.df[self.ability_column].isin(abilities)]
+                if len(group_data) > 0:
+                    mean_score = group_data[metric_col].mean()
+                    scores.append(mean_score)
+                else:
+                    scores.append(0)
+            
+            metric_scores[metric_name] = scores
+        
+        # Normalize all metric scores to 0-1 scale
+        normalized_scores = {}
+        for metric_name, scores in metric_scores.items():
+            if metric_name in all_metric_values:
+                min_val = all_metric_values[metric_name].min()
+                max_val = all_metric_values[metric_name].max()
+                if max_val > min_val:
+                    normalized = [(score - min_val) / (max_val - min_val) for score in scores]
+                else:
+                    normalized = [0.5] * len(scores)  # If all values are the same
+                normalized_scores[metric_name] = normalized
+        
+        # Create circular plot
+        fig, ax = plt.subplots(figsize=figsize, subplot_kw=dict(projection='polar'))
+        
+        # Set up angles for each ability group
+        angles = np.linspace(0, 2 * np.pi, len(ability_names), endpoint=False)
+        
+        # Colors for different metrics using crest palette
+        colors = sns.color_palette("crest", len(normalized_scores))
+        
+        # Plot each metric
+        for idx, (metric_name, scores) in enumerate(normalized_scores.items()):
+            if len(scores) == len(ability_names):
+                # Close the circle
+                scores_closed = scores + [scores[0]]
+                angles_closed = np.concatenate([angles, [angles[0]]])
+                
+                # Plot line and fill
+                ax.plot(angles_closed, scores_closed, '-', 
+                       linewidth=3, label=metric_name, 
+                       color=colors[idx], alpha=0.8)
+                ax.fill(angles_closed, scores_closed, 
+                       color=colors[idx], alpha=0.1)
+        
+        # Customize the plot
+        ax.set_xticks(angles)
+        ax.set_xticklabels(ability_names, fontsize=14, fontweight='bold')
+        ax.set_ylim(0, 1)
+        ax.set_ylabel('', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3)
+        
+        # Add radial labels
+        ax.set_rticks([0.2, 0.4, 0.6, 0.8, 1.0])
+        ax.set_rlabel_position(0)
+        ax.tick_params(labelsize=12)
+        
+        # Add legend
+        ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=10)
+        
+        # Add title
+        plt.title('Normalized Analysis Metrics Across Theory of Mind Ability Groups', 
+                 fontsize=16, fontweight='bold', pad=30)
+        
+        plt.tight_layout()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        
+        plt.show()
+        
+        return normalized_scores
+    
     def comprehensive_correlation_matrix(self, figsize=(16, 12), save_path=None):
         """Correlation matrix with significance highlighting and model ranking."""
         # Calculate correlations between model performance and analysis metrics
@@ -406,17 +497,22 @@ class TOMAnalysis:
             save_path=f'{output_dir}/circular_ability_performance.png'
         )
         
-        print("2. Comprehensive correlation matrix...")
+        print("2. Circular ability metrics...")
+        self.circular_ability_metrics(
+            save_path=f'{output_dir}/circular_ability_metrics.png'
+        )
+        
+        print("3. Comprehensive correlation matrix...")
         corr_df = self.comprehensive_correlation_matrix(
             save_path=f'{output_dir}/comprehensive_correlation_matrix.png'
         )
         
-        print("3. Single correlation matrix...")
+        print("4. Single correlation matrix...")
         single_corr = self.single_correlation_matrix(
             save_path=f'{output_dir}/single_correlation_matrix.png'
         )
         
-        print("4. Scatter performance vs metrics...")
+        print("5. Scatter performance vs metrics...")
         self.scatter_performance_vs_metrics(
             save_path=f'{output_dir}/scatter_performance_vs_metrics.png'
         )
@@ -428,6 +524,7 @@ class TOMAnalysis:
         print(f"\n✓ All plots saved to '{output_dir}' directory")
         print("Generated files:")
         print("- circular_ability_performance.png")
+        print("- circular_ability_metrics.png")
         print("- comprehensive_correlation_matrix.png")
         print("- single_correlation_matrix.png")
         print("- scatter_performance_vs_metrics.png")
