@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1749640450 "/Users/forest/Dropbox/post-doc/git/theoryofmind/methods/methods.tex" "methods.pdf" "methods" 1749640452 0
-  "/Users/forest/Dropbox/post-doc/git/theoryofmind/methods/methods.tex" 1749640421 7340 07a7f7a16fe580b9398a11c315bb5591 ""
+["pdflatex"] 1749764001 "/Users/forest/Dropbox/post-doc/git/theoryofmind/methods/methods.tex" "methods.pdf" "methods" 1749764002 0
+  "/Users/forest/Dropbox/post-doc/git/theoryofmind/methods/methods.tex" 1749764000 12465 99c3c736626feea0ff3d3510b20db80c ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -23,10 +23,12 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1248133631 32362 179c33bbf43f19adbb3825bb4e36e57a ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1215737283 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2023/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -87,9 +89,9 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698183178 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698183167 7883458 f9367fee1ca993c058dc469e47ee881c ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "methods.aux" 1749640451 2852 c7608c55ab30906b61d6e7fafe05211a "pdflatex"
-  "methods.out" 1749640451 2106 48693518ee71d4d4bb2858add7b39ef9 "pdflatex"
-  "methods.tex" 1749640421 7340 07a7f7a16fe580b9398a11c315bb5591 ""
+  "methods.aux" 1749764002 2054 578535e8fce07df41145ffbc8a63bc13 "pdflatex"
+  "methods.out" 1749764002 2106 48693518ee71d4d4bb2858add7b39ef9 "pdflatex"
+  "methods.tex" 1749764000 12465 99c3c736626feea0ff3d3510b20db80c ""
   (generated)
   "methods.aux"
   "methods.log"

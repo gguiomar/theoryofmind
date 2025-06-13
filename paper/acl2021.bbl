@@ -1,0 +1,64 @@
+\begin{thebibliography}{13}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Chen et~al.(2024)Chen, Wu, Zhou, Wen, Bi, Jiang, Cao, Hu, Lai, Xiong, and Huang}]{chen-etal-2024-tombench}
+Zhuang Chen, Jincenzi Wu, Jinfeng Zhou, Bosi Wen, Guanqun Bi, Gongyao Jiang, Yaru Cao, Mengting Hu, Yunghwei Lai, Zexuan Xiong, and Minlie Huang. 2024.
+\newblock \href {https://doi.org/10.18653/v1/2024.acl-long.847} {{T}o{MB}ench: Benchmarking theory of mind in large language models}.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pages 15959--15983, Bangkok, Thailand. Association for Computational Linguistics.
+
+\bibitem[{Jiang et~al.(2024)Jiang, Wang, Shen, Kim, and Kim}]{jiang2024surveylargelanguagemodels}
+Juyong Jiang, Fan Wang, Jiasi Shen, Sungju Kim, and Sunghun Kim. 2024.
+\newblock \href {http://arxiv.org/abs/2406.00515} {A survey on large language models for code generation}.
+
+\bibitem[{Jones et~al.(2024)Jones, Trott, and Bergen}]{jones-etal-2024-comparing-humans}
+Cameron~R. Jones, Sean Trott, and Benjamin Bergen. 2024.
+\newblock \href {https://doi.org/10.1162/tacl_a_00674} {Comparing humans and large language models on an experimental protocol inventory for theory of mind evaluation ({EPITOME})}.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 12:803--819.
+
+\bibitem[{Karttunen(1973)}]{Karttunen73}
+Lauri Karttunen. 1973.
+\newblock Presuppositions of compound sentences.
+\newblock \emph{Linguistic Inquiry}, 4(2):167--193.
+
+\bibitem[{Kim et~al.(2023)Kim, Sclar, Zhou, Bras, Kim, Choi, and Sap}]{kim-etal-2023-fantom}
+Hyunwoo Kim, Melanie Sclar, Xuhui Zhou, Ronan Bras, Gunhee Kim, Yejin Choi, and Maarten Sap. 2023.
+\newblock \href {https://doi.org/10.18653/v1/2023.emnlp-main.890} {{FANT}o{M}: A benchmark for stress-testing machine theory of mind in interactions}.
+\newblock In \emph{Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing}, pages 14397--14413, Singapore. Association for Computational Linguistics.
+
+\bibitem[{Kosinski(2024)}]{Kosinski_2024}
+Michal Kosinski. 2024.
+\newblock \href {https://doi.org/10.1073/pnas.2405460121} {Evaluating large language models in theory of mind tasks}.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 121(45).
+
+\bibitem[{Moghaddam and Honey(2023)}]{moghaddam2023boostingtheoryofmindperformancelarge}
+Shima~Rahimi Moghaddam and Christopher~J. Honey. 2023.
+\newblock \href {http://arxiv.org/abs/2304.11490} {Boosting theory-of-mind performance in large language models via prompting}.
+
+\bibitem[{Montague(1973)}]{Montague1973-MONTPT-4}
+Richard Montague. 1973.
+\newblock The proper treatment of quantification in ordinary english.
+\newblock In Patrick Suppes, Julius Moravcsik, and Jaakko Hintikka, editors, \emph{Approaches to Natural Language}, pages 221--242. Dordrecht.
+
+\bibitem[{Premack and Woodruff(1978)}]{Premack_Woodruff_1978}
+David Premack and Guy Woodruff. 1978.
+\newblock \href {https://doi.org/10.1017/S0140525X00076512} {Does the chimpanzee have a theory of mind?}
+\newblock \emph{Behavioral and Brain Sciences}, 1(4):515–526.
+
+\bibitem[{Riccardi and Desai(2023)}]{riccardi2023wordtestsemanticbenchmark}
+Nicholas Riccardi and Rutvik~H. Desai. 2023.
+\newblock \href {http://arxiv.org/abs/2306.04610} {The two word test: A semantic benchmark for large language models}.
+
+\bibitem[{Sap et~al.(2022)Sap, Le~Bras, Fried, and Choi}]{sap-etal-2022-neural}
+Maarten Sap, Ronan Le~Bras, Daniel Fried, and Yejin Choi. 2022.
+\newblock \href {https://doi.org/10.18653/v1/2022.emnlp-main.248} {Neural theory-of-mind? on the limits of social intelligence in large {LM}s}.
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing}, pages 3762--3780, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
+
+\bibitem[{Ullman(2023)}]{ullman2023largelanguagemodelsfail}
+Tomer Ullman. 2023.
+\newblock \href {http://arxiv.org/abs/2302.08399} {Large language models fail on trivial alterations to theory-of-mind tasks}.
+
+\bibitem[{Zhu et~al.(2024)Zhu, Liu, Dong, Xu, Huang, Kong, Chen, and Li}]{zhu2024multilingualmachinetranslationlarge}
+Wenhao Zhu, Hongyi Liu, Qingxiu Dong, Jingjing Xu, Shujian Huang, Lingpeng Kong, Jiajun Chen, and Lei Li. 2024.
+\newblock \href {http://arxiv.org/abs/2304.04675} {Multilingual machine translation with large language models: Empirical results and analysis}.
+
+\end{thebibliography}

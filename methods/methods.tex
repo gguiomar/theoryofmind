@@ -54,63 +54,81 @@ The idea density metric captures how much semantic information is packed into ea
 
 \subsubsection{Question Complexity Analysis}
 
-We developed a comprehensive question complexity framework that decomposes cognitive demands into four distinct dimensions:
+We developed a comprehensive question complexity framework that decomposes cognitive demands into four distinct dimensions, each capturing different aspects of linguistic and cognitive processing requirements. Our analysis employs natural language processing techniques including dependency parsing, named entity recognition, and lexical analysis to quantify these complexity dimensions systematically.
 
-\paragraph{Syntactic Complexity ($C_{syn}$):} Measures structural linguistic complexity through:
-\begin{itemize}
-    \item Parse tree depth and branching factor
-    \item Clause embedding levels
-    \item Syntactic dependency distances
-    \item Presence of complex grammatical constructions
-\end{itemize}
-
-\paragraph{Semantic Complexity ($C_{sem}$):} Quantifies meaning-level complexity via:
-\begin{itemize}
-    \item Lexical diversity and semantic field breadth
-    \item Abstract concept density
-    \item Polysemy and ambiguity measures
-    \item Conceptual relationship complexity
-\end{itemize}
-
-\paragraph{Theory of Mind Complexity ($C_{ToM}$):} Assesses ToM-specific cognitive demands:
-\begin{itemize}
-    \item Mental state attribution depth (first-order, second-order, etc.)
-    \item Number of agents and their mental states
-    \item Temporal reasoning about belief changes
-    \item False belief and perspective-taking requirements
-\end{itemize}
-
-\paragraph{Reasoning Complexity ($C_{reas}$):} Evaluates logical and inferential demands:
-\begin{itemize}
-    \item Inference chain length and complexity
-    \item Causal reasoning requirements
-    \item Counterfactual thinking demands
-    \item Integration of multiple information sources
-\end{itemize}
-
-The overall Question Complexity Score is computed as:
+Syntactic complexity ($C_{syn}$) measures the structural linguistic complexity of questions through dependency tree analysis and grammatical construction identification. The syntactic complexity score is computed as a weighted combination of three key metrics:
 \begin{equation}
-C_{total} = \alpha C_{syn} + \beta C_{sem} + \gamma C_{ToM} + \delta C_{reas}
+C_{syn} = 0.3 \cdot D_{max} + 0.3 \cdot T_{dep} + 0.4 \cdot N_{clause}
 \end{equation}
-where $\alpha$, $\beta$, $\gamma$, and $\delta$ are empirically determined weights reflecting the relative contribution of each dimension.
+where $D_{max}$ represents the maximum dependency tree depth, calculated as the longest path from the root to any leaf node in the syntactic parse tree; $T_{dep}$ denotes the number of unique dependency relation types present in the question, indicating grammatical diversity; and $N_{clause}$ counts the number of clausal structures, approximated by identifying subordinating conjunctions and relative pronouns that introduce embedded clauses.
+
+Semantic complexity ($C_{sem}$) quantifies the meaning-level complexity through lexical and conceptual analysis. This dimension captures the cognitive demands associated with processing diverse vocabulary, abstract concepts, and semantic relationships:
+\begin{equation}
+C_{sem} = 0.4 \cdot TTR + 0.3 \cdot N_{ent} + 0.3 \cdot R_{content}
+\end{equation}
+where $TTR$ represents the type-token ratio (lexical diversity), computed as the number of unique lemmatized words divided by the total word count; $N_{ent}$ is the count of named entities identified in the question, reflecting the presence of specific referents that require world knowledge; and $R_{content}$ denotes the content word ratio, calculated as the proportion of nouns, verbs, adjectives, and adverbs relative to the total word count.
+
+Theory of Mind complexity ($C_{ToM}$) assesses the cognitive demands specific to mental state reasoning and perspective-taking. This dimension captures the complexity arising from multiple agents, mental state attributions, and perspective shifts:
+\begin{equation}
+C_{ToM} = 0.4 \cdot N_{mental} + 0.3 \cdot N_{perspective} + 0.3 \cdot N_{third}
+\end{equation}
+where $N_{mental}$ counts mental state verbs (think, believe, know, feel, want, etc.) that indicate explicit mental state attributions; $N_{perspective}$ identifies perspective markers such as "he thinks," "her view," or "from his point of view" that signal perspective-taking requirements; and $N_{third}$ represents third-person pronoun usage, which correlates with the presence of multiple agents whose mental states must be tracked.
+
+Reasoning complexity ($C_{reas}$) evaluates the logical and inferential demands imposed by the question structure. This dimension captures the complexity arising from logical operations, temporal reasoning, and conditional structures:
+\begin{equation}
+C_{reas} = 0.3 \cdot N_{logical} + 0.3 \cdot N_{temporal} + 0.4 \cdot N_{conditional}
+\end{equation}
+where $N_{logical}$ counts logical operators (and, or, but, because, etc.) that require logical reasoning; $N_{temporal}$ identifies temporal references (before, after, when, while, etc.) that introduce temporal reasoning demands; and $N_{conditional}$ captures conditional structures (if-then statements, counterfactuals) that require hypothetical reasoning.
+
+The overall Question Complexity Score integrates these four dimensions through equal weighting, reflecting our assumption that each dimension contributes equally to overall cognitive demand:
+\begin{equation}
+C_{total} = \frac{1}{4}(C_{syn} + C_{sem} + C_{ToM} + C_{reas})
+\end{equation}
+
+This multi-dimensional approach enables fine-grained analysis of the specific cognitive demands imposed by different types of Theory of Mind questions, allowing us to identify which aspects of complexity most strongly influence model performance across different ability categories.
 
 \subsubsection{Rhetorical Structure Theory (RST) Analysis}
 
-RST analysis captures the discourse-level organization of ToM questions by analyzing how textual segments relate to form coherent narratives. Our RST implementation identifies:
+RST analysis captures the discourse-level organization of ToM questions by analyzing how textual segments relate to form coherent narratives. Let $T$ denote the RST parse tree for a given text, where each node $n \in T$ has an associated rhetorical relation type $\text{relation}(n)$. Our RST implementation extracts five key metrics that quantify different aspects of discourse complexity relevant to Theory of Mind reasoning.
 
-\paragraph{Elementary Discourse Units (EDUs):} The minimal building blocks of discourse, typically clauses or clause-like segments that express single propositions or events.
+The first metric, Elementary Discourse Units (EDUs), represents the minimal building blocks of discourse, typically clauses or clause-like segments that express single propositions or events. The number of EDUs in a text is formally defined as:
+\begin{equation}
+\text{num\_edus} = |\{n \in T : \text{relation}(n) = \text{``elementary''}\}|
+\end{equation}
+This metric captures the granularity of discourse segmentation, with higher values indicating more complex propositional structures that require greater cognitive resources to process and integrate.
 
-\paragraph{Tree Depth:} The hierarchical depth of the RST parse tree, indicating the complexity of discourse organization and the number of embedded rhetorical relations.
+The second metric, tree depth, quantifies the hierarchical complexity of discourse organization by measuring the maximum depth of the RST parse tree:
+\begin{equation}
+\text{tree\_depth} = \max\{\text{depth}(n) : n \in \text{leaves}(T)\}
+\end{equation}
+where $\text{depth}(n)$ represents the number of edges from the root to node $n$, and $\text{leaves}(T)$ denotes the set of leaf nodes in tree $T$. Greater tree depth indicates more embedded rhetorical relations, suggesting increased demands on working memory and hierarchical processing capabilities.
 
-\paragraph{Rhetorical Relations:} We focus on three key relation types particularly relevant to ToM reasoning:
+We focus on three specific rhetorical relation types that are particularly relevant to Theory of Mind reasoning. Attribution relations capture instances where mental states, beliefs, or speech acts are attributed to agents, formally defined as:
+\begin{equation}
+\text{rel\_attribution} = |\{n \in T : \text{relation}(n) = \text{``attribution''}\}|
+\end{equation}
+These relations are crucial for tracking perspective and mental state attributions in ToM scenarios, such as identifying when the text indicates "John thinks that..." or "Mary believes that...".
 
-\begin{itemize}
-    \item \textbf{Attribution Relations:} Capture instances where mental states, beliefs, or speech acts are attributed to agents (e.g., "John thinks that...", "Mary said that...")
-    \item \textbf{Causal Relations:} Identify cause-effect relationships that are crucial for understanding motivations and consequences in ToM scenarios
-    \item \textbf{Explanation Relations:} Mark segments that provide explanatory information about agents' mental states or behaviors
-\end{itemize}
+Causal relations identify cause-effect relationships that are essential for understanding motivations and consequences in Theory of Mind contexts:
+\begin{equation}
+\text{rel\_causal} = |\{n \in T : \text{relation}(n) = \text{``causal''}\}|
+\end{equation}
+These relations help capture the logical chains of reasoning that connect mental states to actions and outcomes, which are fundamental to ToM understanding.
 
-The RST analysis provides insight into how discourse structure affects the cognitive load of processing ToM questions, with more complex rhetorical structures potentially requiring greater working memory and integration capabilities.
+Explanation relations mark discourse segments that provide explanatory information about agents' mental states or behaviors:
+\begin{equation}
+\text{rel\_explanation} = |\{n \in T : \text{relation}(n) = \text{``explanation''}\}|
+\end{equation}
+These relations are particularly important for identifying passages that elaborate on the reasoning behind characters' actions or mental states.
+
+The general formula for counting any rhetorical relation type $r$ excludes elementary relations, as these serve as discourse unit markers rather than actual rhetorical connections:
+\begin{equation}
+\text{rel\_}r = |\{n \in T : \text{relation}(n) = r \land \text{relation}(n) \neq \text{``elementary''}\}|
+\end{equation}
+
+These RST metrics are constrained by the structural properties of discourse trees. Specifically, the number of EDUs must be at least one ($\text{num\_edus} \geq 1$), tree depth is non-negative ($\text{tree\_depth} \geq 0$), all relation counts are non-negative, and the total number of rhetorical relations cannot exceed the maximum possible internal nodes in a binary tree: $\sum_{r} \text{rel\_}r \leq \text{num\_edus} - 1$.
+
+The RST analysis provides insight into how discourse structure affects the cognitive load of processing ToM questions, with more complex rhetorical structures potentially requiring greater working memory and integration capabilities. By quantifying these discourse-level features, we can examine how the organizational complexity of narratives influences large language models' ability to reason about mental states and social interactions.
 
 \subsection{Statistical Analysis}
 
