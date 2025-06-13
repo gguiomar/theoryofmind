@@ -1,3 +1,4 @@
+#%%
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -130,3 +131,4 @@ plt.ylim(-0.5, 0.5)
 
 plt.tight_layout()
 plt.show()
+# %%

@@ -1,0 +1,22 @@
+Metric,Subject,Correlation,P_Value,Significant,N_Points
+Final_Universal_Metric_Weighted,Human,-0.8917608481750566,0.01693952150914411,True,6
+Final_Universal_Metric_Weighted,Llama 3.1 70B,0.6943646574921394,0.1258442924769273,False,6
+Final_Universal_Metric_Weighted,Qwen 2.5 32B,0.6199706244794256,0.1891911261582024,False,6
+Final_Universal_Metric_Weighted,OLMo 13B,0.8613723427933353,0.02749439368612452,True,6
+Final_Universal_Metric_Weighted,Mistral 7B,0.7835552918603699,0.06520243294808996,False,6
+Final_Universal_Metric_Weighted,Phi-3 Mini,0.7560268803860302,0.08202333290280721,False,6
+Final_Universal_Metric_Weighted,InternLM 1.8B,0.8162658546750483,0.04753608390332501,True,6
+Final_Universal_Metric_PCA,Human,-0.9356990450968684,0.006068989426537703,True,6
+Final_Universal_Metric_PCA,Llama 3.1 70B,0.5562560415964819,0.2516745278009124,False,6
+Final_Universal_Metric_PCA,Qwen 2.5 32B,0.46874695701233166,0.34837697463612055,False,6
+Final_Universal_Metric_PCA,OLMo 13B,0.7459715507865461,0.0885993940621289,False,6
+Final_Universal_Metric_PCA,Mistral 7B,0.6642407512694193,0.15017562223970005,False,6
+Final_Universal_Metric_PCA,Phi-3 Mini,0.6188319022202872,0.19024388963363337,False,6
+Final_Universal_Metric_PCA,InternLM 1.8B,0.6949692394712675,0.1253750421229216,False,6
+Final_Universal_Metric_Multiplicative,Human,-0.7295786763280385,0.09980389477079649,False,6
+Final_Universal_Metric_Multiplicative,Llama 3.1 70B,0.7988647535803057,0.05661457887641106,False,6
+Final_Universal_Metric_Multiplicative,Qwen 2.5 32B,0.7193936713590197,0.1070624087439651,False,6
+Final_Universal_Metric_Multiplicative,OLMo 13B,0.9078790481158157,0.012338523039214538,True,6
+Final_Universal_Metric_Multiplicative,Mistral 7B,0.8093180456819293,0.051072851026357044,False,6
+Final_Universal_Metric_Multiplicative,Phi-3 Mini,0.820895177505236,0.04524509578420107,True,6
+Final_Universal_Metric_Multiplicative,InternLM 1.8B,0.9167685235621754,0.010102925866181566,True,6
