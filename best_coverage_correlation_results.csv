@@ -1,8 +1,0 @@
-Metric,Subject,Correlation,P_Value,Significant,N_Points
-Best_Coverage_Mixed_Metric,Human,0.2633790856570934,0.614066483197313,False,6
-Best_Coverage_Mixed_Metric,Llama 3.1 70B,-0.6903288224390328,0.1289962068126061,False,6
-Best_Coverage_Mixed_Metric,Qwen 2.5 32B,-0.7786457038675807,0.06807365822429035,False,6
-Best_Coverage_Mixed_Metric,OLMo 13B,-0.7160748290528338,0.10947615277906493,False,6
-Best_Coverage_Mixed_Metric,Mistral 7B,-0.8993973964640201,0.014672232125221391,True,6
-Best_Coverage_Mixed_Metric,Phi-3 Mini,-0.8576504749591118,0.028952839141580974,True,6
-Best_Coverage_Mixed_Metric,InternLM 1.8B,-0.8246146231009912,0.04344261587981514,True,6

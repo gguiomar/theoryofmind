@@ -1,8 +1,0 @@
-Metric,Subject,Correlation,P_Value,Significant,N_Points
-Top_Correlations_Mixed_Metric,Human,-0.40072498582272964,0.43108683341655457,False,6
-Top_Correlations_Mixed_Metric,Llama 3.1 70B,0.8088587883299924,0.051310775669189006,False,6
-Top_Correlations_Mixed_Metric,Qwen 2.5 32B,0.8802913040810443,0.020637534723983643,True,6
-Top_Correlations_Mixed_Metric,OLMo 13B,0.89545920856929,0.015821914107150316,True,6
-Top_Correlations_Mixed_Metric,Mistral 7B,0.9941446380771708,5.132751855851093e-05,True,6
-Top_Correlations_Mixed_Metric,Phi-3 Mini,0.9677281493985606,0.0015454033919614005,True,6
-Top_Correlations_Mixed_Metric,InternLM 1.8B,0.9145643966422932,0.010637055895764663,True,6

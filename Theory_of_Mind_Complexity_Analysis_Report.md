@@ -394,3 +394,76 @@ The work establishes multiplicative complexity as the key to understanding cogni
 | Cognitive_Load_Index | **14.3%** | 0.669 | Multiplicative interactions |
 
 The path to true universal correlation (including 70B significance) lies in further developing multiplicative complexity measures that capture the exponential nature of cognitive load across different intelligence architectures.
+
+
+
+Got it. I’ll look into Python-based NLP tools that can compute parsing-based and semantic tree depths (e.g., dependency parsing, AMR, SRL), as well as approaches using embedding structures for sentence complexity analysis. I’ll also gather relevant Theory of Mind literature that connects these syntactic/semantic depth metrics to cognitive load or ToM reasoning.
+
+I’ll update you with the findings shortly.
+
+
+## 8. Further Analysis Suggestions
+
+To extend the current Theory of Mind complexity analysis, we recommend exploring **syntactic parse structures**, **semantic relationship depth**, and **embedding-based metrics**. These approaches can reveal new facets of cognitive complexity and help define a joint metric that generalizes across humans and models. In particular, parsing the **tree depth of word relationships** (i.e. syntactic structure depth) can quantify nested complexity in language.
+
+### 8.1 Syntactic Tree Depth and Parse Complexity
+
+Leverage **dependency and constituency parsing** to measure how deeply sentences are nested. **Parse tree depth** (the longest hierarchical chain in a sentence’s parse) is a classic indicator of sentence complexity. Intuitively, sentences with multiple embedded clauses or long dependency chains require more working memory to understand, raising difficulty for both humans and AI. This was noted early by Yngve (1960) and Frazier (1985), who defined metrics for **clausal embedding depth** as proxies for processing load. Modern studies confirm that greater parse depth correlates with increased cognitive resources needed for comprehension. For example, an analysis of VQA narratives found that *“greater parse tree depth often correlates with more complex sentence structures, which typically require more cognitive resources to process”*. In the context of ToM, deeply nested sentences often correspond to recursive mental state attributions (e.g. *“Alice believes that Bob suspects she knows...”*). Such **complement clause embeddings** are linguistically crucial for expressing false beliefs, a core of ToM reasoning.  Developmental research by de Villiers & Pyers (2002) showed that children’s ability to handle sentences with embedded complements (e.g. *X thinks that Y believes...*) strongly correlates with their false-belief understanding. Thus, incorporating parse tree depth as a feature will directly tie the metric to known ToM-related syntax.
+
+*Tools:* You can compute parse depths using NLP libraries like **spaCy** or **Stanford Stanza**. SpaCy provides a dependency parse out of the box (each token has a `.head` and dependency label), from which you can derive the longest path from root to any token. Stanza (Qi et al. 2020) offers both dependency and constituency parsing in Python. It can produce a constituency tree where you count levels of nesting (the tree’s height). Another option is the **Profiling-UD tool** (Brunato et al. 2020), which automatically extracts dozens of syntactic features including *parse tree depth* and *subordinate clause counts* from Universal Dependencies. These tools enable calculating metrics like *maximum parse depth per sentence* or *average depth*, which you can then correlate with model performance. For dependency parses, also consider **dependency length** (distance between heads and dependents) and the number of **embedded clauses** as complementary indicators of complexity. High tree depths or many embedded clauses across a story/question pair likely indicate complex ToM reasoning requirements.
+
+### 8.2 Semantic Relationship and Role Depth
+
+Beyond pure syntax, analyzing the **semantic structure** of the text can enrich the joint metric. Complex ToM scenarios often involve multiple entities and relationships; therefore, examining **semantic role labeling (SRL)** or **abstract meaning representations (AMR)** could be beneficial. For instance, SRL can identify *who* did *what* to *whom*, *when*, *why*, etc., in each sentence. A sentence requiring integration of many roles or a deep chain of events (e.g. causal or temporal sequences) is inherently complex. You could quantify the number of semantic roles or the depth of predicate–argument chains as features. Similarly, using an AMR parser to get a graph of the sentence and measuring its **graph depth or number of nodes** can indicate complexity of the described situation (more nodes/levels = more complex scenario).
+
+In particular, focus on **hierarchies of mental-state attributions** in the semantic content. For example, a sentence like *“John **\[believes]** (that Mary **\[feels]** (that she **\[was wronged]**))”* has a three-level nesting of mental states. This semantic depth aligns with the syntactic embedding, and capturing it directly (via a custom parse of mental-state verbs) would complement the parse tree metrics. In the Dataset v5 metrics, this was approximated by features like `Q_MS_Embedding_Max_Depth`. A semantic parse can generalize this by truly parsing who believes what about whom.
+
+*Tools:* **AllenNLP** or **Transformers-based SRL** models (e.g. via HuggingFace) can automatically label semantic roles in text. You could count the number of distinct roles or the presence of roles like *Arg0, Arg1, Arg2...* for each predicate as a measure of complexity. A high number of arguments (verb **arity**) indicates a complex event structure – this is in fact used as a complexity feature in prior work. For semantic parsing to AMR, packages like **SEMREP** or **AMR parsers** (e.g. `amrlib` in Python) can produce a graph where you measure properties like depth or connectivity. These semantic analyses would capture *meaning* complexity beyond what surface syntax shows – for example, two sentences might have similar parse lengths but one could involve a more convoluted set of beliefs and causal relations. By integrating semantic metrics (like average roles per verb, or a “semantic depth index”), you frame a joint metric that accounts for both structure and meaning.
+
+### 8.3 Embedding-Based Complexity Metrics
+
+Another promising avenue is to analyze **embedding space representations** of the stories and questions. Instead of explicit linguistic features, this approach uses high-dimensional **vector embeddings** (from language models) to capture semantic and syntactic information implicitly. For example, one can compute embeddings for each sentence or paragraph using a model like BERT or Sentence-BERT, and then examine patterns such as: **semantic distance** between sentences, clustering of narrative segments, or the trajectory of the story in embedding space. A narrative that jumps between unrelated contexts or contains disparate topics will show low cosine similarity between consecutive sentence embeddings – indicating higher complexity due to low cohesion. Conversely, a well-connected, straightforward story stays in a tight cluster in embedding space. **Embedding dispersion** (e.g. the variance of all sentence embeddings in the story) could serve as a complexity indicator – higher dispersion means the text covers more diverse content or perspectives, which might increase ToM reasoning difficulty.
+
+Recent research has started developing metrics based on these ideas. *Choi (2024)* proposes a text complexity metric using **word embeddings to measure semantic distance** between words in a document. The metric computes how far apart the words of a text are in embedding space (on average), under the hypothesis that more **semantic disparity** implies the text is harder to read. Indeed, this embedding-based metric correlated better with readability levels than traditional measures like PMI or word-length frequencies. We can adapt this notion to ToM: compute an **embedding coherence score** for each story (e.g. average cosine similarity between each sentence and the next). A lower score would flag narratives that shift topics or contexts frequently, likely requiring the model or human to continually update beliefs about the situation. Another idea is to use **principal component analysis (PCA)** on the set of embeddings from a story: if the first few components explain little variance, it means the story’s content is not easily reducible (potentially more complex). Embedding-based analyses can capture subtle features like figurative language or implicit context which are hard to encode in rule-based metrics.
+
+*Tools:* Using Python, one can easily obtain embeddings via the Hugging Face Transformers library (e.g., encode text with `BERT`, `RoBERTa`, or use `SentenceTransformer` for sentence-level embeddings). Libraries like **scikit-learn** or **UMAP** can then analyze the geometry of these embeddings (for clustering or dimensionality reduction). For example, you might calculate the **average pairwise cosine distance** between all sentence embeddings in a story as a measure of semantic spread. Another metric could be the **distance between story and question embeddings** – if the question’s embedding is far from the story’s overall embedding centroid, the question might be tapping an implicit or distal aspect of the story (higher complexity). These embedding-derived features can be combined with the handcrafted linguistic features to improve the joint metric. The goal is to let the model’s own learned representation of complexity (via embeddings) inform the metric, complementing the explicit syntax/semantic counts.
+
+### 8.4 Literature References for Joint Metrics
+
+To frame the joint metric definition in a research context, we highlight a few relevant works. **Syntactic complexity metrics** like parse tree depth have longstanding support in psycholinguistics and are frequently used in NLP complexity studies. Roark et al. (2007) demonstrated that such parse-based measures (including Yngve’s and Frazier’s embeddings) distinguished patients with mild cognitive impairment from healthy controls, highlighting their value as cognitive markers. For theory-of-mind specifically, linguistic researchers have argued that mastering sentences with recursive complements is crucial for representing others’ false beliefs. This suggests that a joint metric should heavily weight features capturing **recursive syntax and multi-clause reasoning**, as we have done. On the semantic side, measures of **verbal argument complexity** (number and arrangement of arguments) are known to correlate with sentence processing difficulty. Finally, **combined approaches** are advocated by recent work like Sarti et al. (2021), who profile texts with over 100 features (syntax, semantics, discourse) to predict human complexity judgments. The success of embedding-based metrics (e.g. Choi 2024) in readability research also supports integrating corpus-trained semantic knowledge into our joint metric. By citing these works and building on their methodologies, we can justify our composite approach: a metric that multiplies and blends factors from syntax (parse depth, embedding count), semantics (role depth, causal links), and statistical semantics (embedding dispersion) is well-grounded in cognitive and computational linguistics literature.
+
+Overall, incorporating **parse tree depth analysis**, **semantic role/graph complexity**, and **embedding-space metrics** will enrich the current ToM complexity framework. These analyses can be implemented with existing NLP toolkits in Python and are backed by research that links linguistic complexity to cognitive load and theory-of-mind reasoning. By exploring these directions, we aim to craft a **unified metric** that captures the multifaceted nature of ToM difficulty – from the literal structure of language to the abstract space of meanings. Such a metric would push us closer to a **true universal complexity measure** that correlates with performance for both humans and AI across all scales.
+
+
+Purpose	Library / Repo (pip name)	Why it’s useful
+Dependency parsing + tree-depth	spaCy – explosion/spaCy (pip install spacy) 
+github.com
+Fast GPU/CPU parser, easy .token._.depth custom extension for max/min/avg dependency depth.
+Stanza – stanfordnlp/stanza (pip install stanza) 
+github.com
+UD-based dependency and constituency parses; returns explicit tree objects so computing longest path = one DFS.
+Benepar – nikitakit/self-attentive-parser (pip install benepar) 
+github.com
+State-of-the-art constituency parser; expose tree.height() for clausal embedding depth (classic ToM proxy).
+NeoSCA – tanloong/neosca (pip install neosca) 
+github.com
+Ready-made L2 Syntactic Complexity Analyzer; outputs 14+ depth/length/co-ordination measures in CSV.
+Semantic role / event graphs	AllenNLP – allenai/allennlp + allennlp-models (pip install allennlp allennlp-models) 
+github.com
+github.com
+One-liner SRL predictor → argument spans; count roles per predicate or max role-chain length.
+amrlib – bjascob/amrlib (pip install amrlib) 
+github.com
+Neural AMR parse; graph.depth_first() gives AMR depth / node count for causal-belief chains.
+TUPA (UCCA) – danielhers/tupa (pip install tupa[bert]) 
+github.com
+UCCA semantic graphs; graph height approximates abstract scene complexity (works cross-lingually).
+Embedding-space probes / coherence	sentence-transformers – UKPLab/sentence-transformers (pip install sentence-transformers) 
+github.com
+Quickly embed sentences; compute variance / trajectory length in embedding space as dynamic-complexity metric.
+BertViz – jessevig/bertviz (pip install bertviz) 
+github.com
+Interactive attention + hidden-state visualization; lets you quantify head-depth alignment with parse depth (e.g. avg layer index where cross-sentence attention peaks).
+Baseline readability / surface complexity	textstat – textstat/textstat (pip install textstat) 
+github.com
+Quick Flesch, SMOG, etc. – trivial to include for sanity-checks and variance partitioning.
