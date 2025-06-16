@@ -20,11 +20,11 @@ def load_and_merge_data():
     print("Loading datasets...")
     
     # Load comprehensive features
-    df_features = pd.read_csv('../data/final/dataset_v14_comprehensive_advanced.csv')
+    df_features = pd.read_csv('data/final/dataset_v14_comprehensive_advanced.csv')
     df_features.columns = df_features.columns.str.strip()
     
     # Load original dataset for performance calculation
-    df_original = pd.read_csv('../data/original/dataset.csv')
+    df_original = pd.read_csv('data/original/dataset.csv')
     df_original.columns = df_original.columns.str.strip()
     
     print(f"Comprehensive features dataset: {df_features.shape}")
@@ -283,7 +283,7 @@ def find_universal_features(significant_df, min_subjects=3):
     
     return universal_features
 
-def create_visualizations(corr_matrix, sig_matrix, output_dir='../results/visualizations/'):
+def create_visualizations(corr_matrix, sig_matrix, output_dir='results/visualizations/'):
     """Create correlation matrix visualizations"""
     
     print("\nCreating visualizations...")
@@ -348,7 +348,7 @@ def create_visualizations(corr_matrix, sig_matrix, output_dir='../results/visual
     
     print(f"Correlation matrix saved to: {output_dir}correlation_matrix.pdf")
 
-def save_results(final_corr_df, significant_df, universal_features, output_dir='../results/correlations/'):
+def save_results(final_corr_df, significant_df, universal_features, output_dir='results/correlations/'):
     """Save all results to CSV files"""
     
     print("\nSaving results...")
